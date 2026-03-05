@@ -6,8 +6,10 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-change-in-prod")
     DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-    # Works for both PostgreSQL (Supabase) and MySQL
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "")
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL",
+        "postgresql://postgres:SqqG9cQKHPD2ebn7@db.rhnkyemmzgolmzpjvfgr.supabase.co:5432/postgres"
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_recycle": 280,
@@ -21,8 +23,3 @@ class Config:
     TIMEFRAMES = ["1h", "4h", "1d"]
     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
     TELEGRAM_CHAT_ID   = os.getenv("TELEGRAM_CHAT_ID", "")
-```
-
-Also update `requirements.txt` — replace `pymysql==1.1.1` with:
-```
-psycopg2-binary==2.9.9
